@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Chrome Extension Starter",
-    "description": "A Chrome Extension starter kit",
-    "version": "1.0.0",
+    "name": "Oz Extension",
+    "description": "",
+    "version": "0.1.0",
     "browser_action": {
         "default_icon": "icon-16.png",
         "default_popup": "popup.html"
@@ -11,10 +11,22 @@
         "scripts": ["js/backgroundPage.js"],
         "persistent": false
     },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["js/contentPage.js"]
+        }
+    ],
     "icons": {
         "16": "icon-16.png",
         "48": "icon-48.png",
         "128": "icon-128.png"
     },
-    "permissions": ["tabs", "activeTab", "notifications", "http://*/", "https://*/"]
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "notifications",
+        "http://*/",
+        "https://*/"
+    ]
 }

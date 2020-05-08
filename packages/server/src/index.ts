@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import axios from 'axios';
-// import cors = require('cors');
+import cors = require('cors');
 import express = require('express');
 import { Request, Response } from 'express';
 import logger = require('morgan');
@@ -10,11 +10,11 @@ const base = require('airtable').base(process.env.AIRTABLE_BASE_ID);
 
 const app = express();
 
-// app.use(
-//   cors({
-//     origin: ['https://contextualwebsearch-websearch-v1.p.rapidapi.com', /\.yangbanking.\com$/],
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.STORYBOOK_URL,
+  })
+);
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));

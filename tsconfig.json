@@ -1,21 +1,8 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "moduleResolution": "node",
     "removeComments": true,
-    "noImplicitAny": true,
     "strict": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "suppressImplicitAnyIndexErrors": true
+    "esModuleInterop": true
   }
 }

@@ -11,7 +11,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "client": "yarn workspace @oz/extension dev",
+    "client": "yarn workspace @oz/extension storybook",
     "server": "yarn workspace @oz/server dev",
     "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
   },

@@ -5,6 +5,7 @@
 export const browser: any = {
     tabs: {
         executeScript(currentTabId: number, details: any) {
+            console.log(currentTabId, details);
             return Promise.resolve({ done: true });
         },
     },
