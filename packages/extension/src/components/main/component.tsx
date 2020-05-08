@@ -20,13 +20,13 @@ interface IMainProps {
 
 interface IMainState {
     data: Brand;
-    news: any;
+    // news: any;
 }
 
 class Main extends PureComponent<IMainProps, IMainState> {
     state: IMainState = {
         data: {},
-        news: {},
+        // news: {},
     };
 
     componentDidMount() {
@@ -60,8 +60,6 @@ class Main extends PureComponent<IMainProps, IMainState> {
 
     public render() {
         const { data } = this.state;
-
-        console.log(data);
 
         const image = data["Image"] && data["Image"]![0];
         const parentText = data["Parent Text"];
