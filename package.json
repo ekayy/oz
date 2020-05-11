@@ -11,9 +11,10 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "client": "yarn workspace @oz/extension storybook",
+    "client": "yarn workspace @oz/extension dev",
     "server": "yarn workspace @oz/server dev",
-    "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
+    "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\"",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn storybook\""
   },
   "dependencies": {
     "concurrently": "^5.2.0"
