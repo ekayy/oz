@@ -5,6 +5,13 @@ import express = require('express');
 import { Request, Response } from 'express';
 import logger = require('morgan');
 import bodyParser = require('body-parser');
+import redis = require('redis');
+
+const client = redis.createClient();
+
+client.on('error', error => {
+  console.error(error);
+});
 
 const base = require('airtable').base(process.env.AIRTABLE_BASE_ID);
 
@@ -42,24 +49,30 @@ app.use(bodyParser.json());
 app.get(
   '/',
   async (req: Request, res: Response): Promise<void> => {
-    try {
-      const records = await base('Brands')
-        .select({
-          filterByFormula: `SEARCH(LOWER("${req.query.name}"), LOWER(Name))`,
-          maxRecords: 20,
-        })
-        .all();
+    client.get('brands', async (err, data) => {
+      if (err || data === null) {
+        try {
+          const records = await base('Brands')
+            .select({
+              filterByFormula: `SEARCH(LOWER("${req.query.name}"), LOWER(Name))`,
+              maxRecords: 20,
+            })
+            .all();
 
-      res.send(records);
+          console.log(records);
 
-      // const activeRecords = records.filter(record => record.get('active') === 1);
-      // const randomRecord = activeRecords[Math.floor(Math.random() * activeRecords.length)];
+          // client.set('brands', records);
 
-      // res.send(randomRecord);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Please try again.');
-    }
+          res.send(records);
+        } catch (err) {
+          console.error(err);
+          res.status(500).send('Please try again.');
+        }
+      } else {
+        console.error(err);
+        res.status(500).send('Please try again.');
+      }
+    });
   }
 );
 
@@ -90,4 +103,4 @@ app.get(
   }
 );
 
-app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}!`));
+export default app;
