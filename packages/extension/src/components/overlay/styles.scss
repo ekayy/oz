@@ -1,3 +1,37 @@
-.hello-text {
-    color: red;
+.overlay {
+    width: 400px;
+    padding: 2rem;
+    border-radius: 4px;
+    border: 1px #ccc solid;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 38px 0px;
+}
+
+.overlay-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.overlay-image {
+    padding: 1rem;
+}
+
+.overlay-header {
+    font-weight: 500;
+}
+
+.overlay-description {
+    padding: 1rem 0;
+}
+
+.overlay-button {
+    border: 1px #5dbb63 solid;
+    border-radius: 15px;
+    color: #66a266;
+    padding: 1rem;
+}
+
+.overlay-button:hover {
+    text-decoration: none;
+    background: #b2d3c2;
+    color: #fff;
 }
