@@ -5,13 +5,8 @@ import express = require('express');
 import { Request, Response } from 'express';
 import logger = require('morgan');
 import bodyParser = require('body-parser');
-import redis = require('redis');
-
-const client = redis.createClient();
-
-client.on('error', error => {
-  console.error(error);
-});
+import Redis = require('ioredis');
+const redis = new Redis();
 
 const base = require('airtable').base(process.env.AIRTABLE_BASE_ID);
 
@@ -27,52 +22,37 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// let records = [];
-
-// // called for every page of records
-// const processPage = (partialRecords, fetchNextPage) => {
-//   records = [...records, ...partialRecords];
-//   fetchNextPage();
-// };
-
-// // called when all the records have been retrieved
-// const processRecords = err => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-
-//   //process the `records` array and do something with it
-// };
-
 // Search brands name based on url query parameter
 app.get(
   '/',
   async (req: Request, res: Response): Promise<void> => {
-    client.get('brands', async (err, data) => {
-      if (err || data === null) {
-        try {
-          const records = await base('Brands')
-            .select({
-              filterByFormula: `SEARCH(LOWER("${req.query.name}"), LOWER(Name))`,
-              maxRecords: 20,
-            })
-            .all();
+    const cached = await redis.get(req.url.toLowerCase());
 
-          console.log(records);
+    if (cached !== null) {
+      res.send(JSON.parse(cached));
+      return;
+    }
 
-          // client.set('brands', records);
+    try {
+      const records = await base('Brands')
+        .select({
+          filterByFormula: `
+            AND(
+              SEARCH(LOWER("${req.query.category || ''}"), LOWER({Category})),
+              SEARCH(LOWER("${req.query.name || ''}"), LOWER({Name}))
+            )
+         `,
+          maxRecords: 20,
+        })
+        .all();
 
-          res.send(records);
-        } catch (err) {
-          console.error(err);
-          res.status(500).send('Please try again.');
-        }
-      } else {
-        console.error(err);
-        res.status(500).send('Please try again.');
-      }
-    });
+      const data = records[0].fields;
+      redis.set(req.url.toLowerCase(), JSON.stringify(data), 'EX', 60 * 60 * 24);
+      res.send(data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Please try again.');
+    }
   }
 );
 
