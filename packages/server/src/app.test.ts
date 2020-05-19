@@ -10,7 +10,7 @@ describe('GET brand on "/"', () => {
       .query({ name: 'Nesquik' });
 
     expect(response.status).toBe(200);
-    expect(response.body['Parent Text']).toContain('Nestle');
+    expect(response.body.parent).toContain('Nestle');
   });
 
   test('should respond when only category url param exists', async () => {
@@ -19,16 +19,17 @@ describe('GET brand on "/"', () => {
       .query({ category: 'Grocery' });
 
     expect(response.status).toBe(200);
-    expect(response.body['Category Text']).toContain('Grocery');
+
+    expect(response.body.category).toContain('Grocery');
   });
 
-  test('should search by both category and name url params', async () => {
+  test('should respond by both category and name url params', async () => {
     const response = await request(app)
       .get('/')
       .query({ name: 'Kashi', category: 'Grocery' });
 
     expect(response.status).toBe(200);
-    expect(response.body['Category Text']).toHaveLength(1);
+    expect(response.body.category).toHaveLength(1);
   });
 });
 

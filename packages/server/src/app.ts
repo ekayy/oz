@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import axios from 'axios';
+// import axios from 'axios';
 import cors = require('cors');
 import express = require('express');
 import { Request, Response } from 'express';
@@ -38,15 +38,26 @@ app.get(
         .select({
           filterByFormula: `
             AND(
-              SEARCH(LOWER("${req.query.category || ''}"), LOWER({Category})),
-              SEARCH(LOWER("${req.query.name || ''}"), LOWER({Name}))
-            )
-         `,
+              SEARCH(LOWER("${req.query.category || ''}"), LOWER({Category Link})),
+              SEARCH(LOWER("${req.query.name || ''}"), LOWER({name}))
+            )`,
+          fields: [
+            'category',
+            'description',
+            'image',
+            'name',
+            'employeeNum',
+            'parent',
+            'payRatio',
+            'subcategory',
+            'taxrate',
+            'ticker',
+          ],
           maxRecords: 20,
         })
         .all();
-
       const data = records[0].fields;
+
       redis.set(req.url.toLowerCase(), JSON.stringify(data), 'EX', 60 * 60 * 24);
       res.send(data);
     } catch (err) {
@@ -56,31 +67,31 @@ app.get(
   }
 );
 
-app.get(
-  '/news',
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const news = await axios.get(`https://${process.env.NEWS_API_URL}/api/Search/NewsSearchAPI`, {
-        headers: {
-          'Content-Type': 'application/octet-stream',
-          'x-rapidapi-host': process.env.NEWS_API_URL,
-          'x-rapidapi-key': process.env.NEWS_API_KEY,
-        },
-        params: {
-          q: req.query.name,
-          autoCorrect: 'false',
-          pageNumber: '1',
-          pageSize: '4',
-          safeSearch: 'true',
-        },
-      });
+// app.get(
+//   '/news',
+//   async (req: Request, res: Response): Promise<void> => {
+//     try {
+//       const news = await axios.get(`https://${process.env.NEWS_API_URL}/api/Search/NewsSearchAPI`, {
+//         headers: {
+//           'Content-Type': 'application/octet-stream',
+//           'x-rapidapi-host': process.env.NEWS_API_URL,
+//           'x-rapidapi-key': process.env.NEWS_API_KEY,
+//         },
+//         params: {
+//           q: req.query.name,
+//           autoCorrect: 'false',
+//           pageNumber: '1',
+//           pageSize: '4',
+//           safeSearch: 'true',
+//         },
+//       });
 
-      res.send(news.data);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Please try again.');
-    }
-  }
-);
+//       res.send(news.data);
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).send('Please try again.');
+//     }
+//   }
+// );
 
 export default app;
