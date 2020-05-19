@@ -3,11 +3,11 @@ import "./styles.scss";
 
 // // // //
 
-export const Hello: FunctionComponent = () => {
+export const ProductContainer: FunctionComponent = () => {
     return (
         <div className="row">
             <div className="col-lg-12 text-center">
-                <p className="lead mb-0">Oz Extension</p>
+                <div className="product-container">COOL</div>
             </div>
         </div>
     );
