@@ -48,7 +48,7 @@
     "typescript": "^3.8.3"
   },
   "engines": {
-    "node": "10.x",
+    "node": "13.x",
     "yarn": "1.x"
   },
   "jest": {

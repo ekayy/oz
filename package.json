@@ -11,10 +11,15 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "client": "yarn workspace @oz/extension dev",
-    "server": "yarn workspace @oz/server dev",
     "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\"",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn storybook\""
+    "dev": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client:storybook\"",
+    "test": "concurrently --kill-others-on-fail \"yarn server:test\"  \"yarn client:test\"",
+    "server": "yarn workspace @oz/server dev",
+    "server:test": "yarn workspace @oz/server test:watch",
+    "client": "yarn workspace @oz/extension dev",
+    "client:build": "yarn workspace @oz/extension build",
+    "client:storybook": "yarn workspace @oz/extension storybook",
+    "client:test": "yarn workspace @oz/extension test"
   },
   "dependencies": {
     "concurrently": "^5.2.0"
