@@ -11,20 +11,19 @@ interface Brand {
     Ticker?: string[];
     "Parent Text"?: string[];
     Image?: string[];
-    [key: string]: any;
 }
 
-interface IMainProps {
+interface Props {
     brand: string;
 }
 
-interface IMainState {
-    data: Brand;
+interface State {
+    data: Brand | ;
     // news: any;
 }
 
-class Main extends PureComponent<IMainProps, IMainState> {
-    state: IMainState = {
+class Main extends PureComponent<Props, State> {
+    state = {
         data: {},
         // news: {},
     };
@@ -58,7 +57,7 @@ class Main extends PureComponent<IMainProps, IMainState> {
     //     }
     //   }
 
-    public render() {
+    public render(): JSX.Element {
         const { data } = this.state;
 
         const image = data["Image"] && data["Image"]![0];
