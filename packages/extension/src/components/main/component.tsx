@@ -41,9 +41,7 @@ export const Main: React.FC<{ brandName: string }> = ({ brandName }) => {
       <ul className="list">
         <li>Parent Company: {data.parent}</li>
         {data.payRatio && <li>Parent CEO Pay Ratio: {data.payRatio}:1</li>}
-        {data.taxRate && (
-          <li>Parent Effective Tax Rate: {(data.taxRate * 100).toFixed(2)}%</li>
-        )}
+        {data.taxRate && <li>Parent Effective Tax Rate: {(data.taxRate * 100).toFixed(2)}%</li>}
       </ul>
     </div>
   );

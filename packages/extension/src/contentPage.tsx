@@ -4,23 +4,14 @@ import ReactDOM from 'react-dom';
 import { Main } from './components/main';
 
 const start = () => {
-  if (
-    window.location.hostname === 'amazon.com' ||
-    window.location.hostname === 'www.amazon.com'
-  ) {
+  if (window.location.hostname === 'amazon.com' || window.location.hostname === 'www.amazon.com') {
     const tag = document.createElement('div');
     tag.setAttribute('id', 'main-root');
-    const productDescription: HTMLElement | null = document.getElementById(
-      'desktop_unifiedPrice',
-    );
+    const productDescription: HTMLElement | null = document.getElementById('desktop_unifiedPrice');
 
     productDescription?.append(tag);
-    const brandName: string =
-      document.getElementById('bylineInfo')?.innerText || '';
-    ReactDOM.render(
-      <Main brandName={brandName} />,
-      document.getElementById('main-root'),
-    );
+    const brandName: string = document.getElementById('bylineInfo')?.innerText || '';
+    ReactDOM.render(<Main brandName={brandName} />, document.getElementById('main-root'));
   }
 };
 
