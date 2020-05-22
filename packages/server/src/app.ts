@@ -50,7 +50,7 @@ app.get(
             'parent',
             'payRatio',
             'subcategory',
-            'taxrate',
+            'taxRate',
             'ticker',
           ],
           maxRecords: 20,
