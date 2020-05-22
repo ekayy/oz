@@ -13,9 +13,11 @@ const base = require('airtable').base(process.env.AIRTABLE_BASE_ID);
 const app = express();
 
 app.use(
-  cors({
-    origin: process.env.STORYBOOK_URL,
-  })
+  cors()
+  //   {
+  //   origin: [process.env.STORYBOOK_URL as string, 'https://www.amazon.com'],
+  //   methods: 'GET',
+  // }
 );
 
 app.use(logger('dev'));
@@ -59,7 +61,7 @@ app.get(
       const data = records[0].fields;
 
       redis.set(req.url.toLowerCase(), JSON.stringify(data), 'EX', 60 * 60 * 24);
-      res.send(data);
+      res.json(data);
     } catch (err) {
       console.error(err);
       res.status(500).send('Please try again.');
