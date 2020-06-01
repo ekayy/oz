@@ -5,9 +5,14 @@
 .slider {
   padding: 1rem;
 
-  .slick-next:before,
-  .slick-prev:before {
+  .slick-next,
+  .slick-prev {
     color: #000;
+  }
+
+  .slick-next:hover,
+  .slick-prev:hover {
+    color: #777;
   }
 
   img {
