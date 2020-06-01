@@ -1,16 +1,16 @@
 .slider-container {
-    border: 1px solid #5dbb63;
+  border: 1px solid #5dbb63;
 }
 
 .slider {
-    padding: 0.7rem;
+  padding: 1rem;
 
-    .slick-next:before,
-    .slick-prev:before {
-        color: #000;
-    }
+  .slick-next:before,
+  .slick-prev:before {
+    color: #000;
+  }
 
-    img {
-        padding: 0.5rem;
-    }
+  img {
+    padding: 0.5rem;
+  }
 }
