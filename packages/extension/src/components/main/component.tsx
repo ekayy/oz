@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles.scss';
+import { Overlay } from '../overlay';
 
 const API_URL = process.env.API_URL as string;
 
@@ -19,6 +20,7 @@ interface Brand {
 export const Main: React.FC<{ brandName: string }> = ({ brandName }) => {
   const [data, setData] = useState<Brand>({});
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [showOverlay, setShowOverlay] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBrand = async (brand: string): Promise<void> => {
@@ -38,19 +40,24 @@ export const Main: React.FC<{ brandName: string }> = ({ brandName }) => {
     fetchBrand(brandName);
   }, []);
 
+  const toggleOverlay = () => {
+    setShowOverlay(!showOverlay);
+  };
+
   return (
     <>
       {!isFetching && (
-        <div className="container">
-          <img src={data.image} className="image" />
+        <div className="box">
+          <img onClick={toggleOverlay} src={data.image} className="image" />
 
-          {/* <ul className="list">
+          <ul className="list">
             <li>Parent Company: {data.parent}</li>
             {data.payRatio && <li>Parent CEO Pay Ratio: {data.payRatio}:1</li>}
             {data.taxRate && <li>Parent Effective Tax Rate: {(data.taxRate * 100).toFixed(2)}%</li>}
-          </ul> */}
+          </ul>
         </div>
       )}
+      {showOverlay && <Overlay />}
     </>
   );
 };
