@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles.scss';
 import { Overlay } from '../overlay';
+import { ProductSlider } from '../product-slider';
 
 const API_URL = process.env.API_URL as string;
 
@@ -40,15 +41,19 @@ export const Main: React.FC<{ brandName: string }> = ({ brandName }) => {
     fetchBrand(brandName);
   }, []);
 
-  const toggleOverlay = () => {
-    setShowOverlay(!showOverlay);
+  const openOverlay = () => {
+    setShowOverlay(true);
+  };
+
+  const closeOverlay = () => {
+    setTimeout(() => setShowOverlay(false), 500);
   };
 
   return (
-    <>
+    <div className="oz-container">
       {!isFetching && (
         <div className="box">
-          <img onClick={toggleOverlay} src={data.image} className="image" />
+          <img onMouseOver={openOverlay} src={data.image} className="image" />
 
           <ul className="list">
             <li>Parent Company: {data.parent}</li>
@@ -57,7 +62,9 @@ export const Main: React.FC<{ brandName: string }> = ({ brandName }) => {
           </ul>
         </div>
       )}
-      {showOverlay && <Overlay />}
-    </>
+      {showOverlay && <Overlay closeOverlay={closeOverlay} />}
+
+      <ProductSlider />
+    </div>
   );
 };
