@@ -6,7 +6,12 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "@commitlint/config-conventional": "^8.1.0",
+    "commitlint": "^8.1.0",
+    "husky": "^3.0.3",
+    "lerna": "^3.20.2",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -19,9 +24,24 @@
     "client": "yarn workspace @oz/extension dev",
     "client:build": "yarn workspace @oz/extension build",
     "client:storybook": "yarn workspace @oz/extension storybook",
-    "client:test": "yarn workspace @oz/extension test"
+    "client:test": "yarn workspace @oz/extension test",
+    "format": "npm run prettier -- --write",
+    "prettier": "prettier \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|mdx|graphql)\"",
+    "prettier:validate": "npm run prettier -- --list-different"
   },
   "dependencies": {
     "concurrently": "^5.2.0"
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|mdx|graphql)": [
+      "yarn format",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
