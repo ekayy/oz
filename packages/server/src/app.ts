@@ -1,16 +1,16 @@
-import 'dotenv/config';
+import 'dotenv/config'
 // import axios from 'axios';
-import cors = require('cors');
-import express = require('express');
-import { Request, Response } from 'express';
-import logger = require('morgan');
-import bodyParser = require('body-parser');
-import Redis = require('ioredis');
-const redis = new Redis();
+import cors = require('cors')
+import express = require('express')
+import { Request, Response } from 'express'
+import logger = require('morgan')
+import bodyParser = require('body-parser')
+import Redis = require('ioredis')
+const redis = new Redis()
 
-const base = require('airtable').base(process.env.AIRTABLE_BASE_ID);
+const base = require('airtable').base(process.env.AIRTABLE_BASE_ID)
 
-const app = express();
+const app = express()
 
 app.use(
   cors()
@@ -18,21 +18,21 @@ app.use(
   //   origin: [process.env.STORYBOOK_URL as string, 'https://www.amazon.com'],
   //   methods: 'GET',
   // }
-);
+)
 
-app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(logger('dev'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Search brands name based on url query parameter
 app.get(
   '/',
   async (req: Request, res: Response): Promise<void> => {
-    const cached = await redis.get(req.url.toLowerCase());
+    const cached = await redis.get(req.url.toLowerCase())
 
     if (cached !== null) {
-      res.send(JSON.parse(cached));
-      return;
+      res.send(JSON.parse(cached))
+      return
     }
 
     try {
@@ -40,7 +40,8 @@ app.get(
         .select({
           filterByFormula: `
             AND(
-              SEARCH(LOWER("${req.query.category || ''}"), LOWER({Category Link})),
+              SEARCH(LOWER("${req.query.category ||
+                ''}"), LOWER({Category Link})),
               SEARCH(LOWER("${req.query.name || ''}"), LOWER({name}))
             )`,
           fields: [
@@ -57,17 +58,17 @@ app.get(
           ],
           maxRecords: 20,
         })
-        .all();
-      const data = records[0].fields;
+        .all()
+      const data = records[0].fields
 
-      redis.set(req.url.toLowerCase(), JSON.stringify(data), 'EX', 60 * 60 * 24);
-      res.json(data);
+      redis.set(req.url.toLowerCase(), JSON.stringify(data), 'EX', 60 * 60 * 24)
+      res.json(data)
     } catch (err) {
-      console.error(err);
-      res.status(500).send('Please try again.');
+      console.error(err)
+      res.status(500).send('Please try again.')
     }
   }
-);
+)
 
 // app.get(
 //   '/news',
@@ -96,4 +97,4 @@ app.get(
 //   }
 // );
 
-export default app;
+export default app
