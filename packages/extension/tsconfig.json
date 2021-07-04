@@ -1,33 +1,32 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@src/*": ["src/*"]
-        },
-        "target": "es6",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "rootDir": "./src",
-        "outDir": "dist/js",
-        "jsx": "react",
-        "lib": ["dom", "es6", "es2017"],
-        "strict": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-
-        "noFallthroughCasesInSwitch": true,
-        "emitDecoratorMetadata": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true
-        // "suppressImplicitAnyIndexErrors": true,
-    }
-    // "exclude": ["node_modules", "./src/**/*.test.ts", "./src/**/*.stories.tsx"],
-    // "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "outDir": "dist/js",
+    "jsx": "react",
+    "lib": ["dom", "es6", "es2017"],
+    "strict": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
+    // "suppressImplicitAnyIndexErrors": true,
+  },
+  "exclude": ["node_modules", "./src/**/*.test.ts", "./src/**/*.stories.tsx"]
+  // "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }

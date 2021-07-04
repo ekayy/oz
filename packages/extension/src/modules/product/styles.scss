@@ -1,0 +1,28 @@
+.product-container {
+  max-width: fit-content;
+  text-align: center;
+  // border-right: 1px solid #ccc;
+  padding: 0 1rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.product-info {
+  text-align: left;
+}
+
+.price {
+  display: flex;
+}
+
+.price-unit {
+  display: flex;
+  // flex-direction: column-reverse;
+  font-size: 0.8rem;
+}
+
+.line {
+  border-bottom: solid;
+}

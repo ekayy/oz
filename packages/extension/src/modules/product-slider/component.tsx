@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Slider from 'react-slick';
-import { ProductContainer } from '../../microcomponents/product-container/component';
+import { ProductContainer } from '../../components/product-container/component';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import './styles.scss';
 import 'slick-carousel/slick/slick.css';

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Main } from './components/main';
+import { Main } from './modules/main';
 
 const start = () => {
   if (window.location.hostname === 'amazon.com' || window.location.hostname === 'www.amazon.com') {
